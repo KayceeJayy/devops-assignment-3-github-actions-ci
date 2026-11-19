@@ -69,7 +69,13 @@ system_info() {
 
     echo "===== SYSTEM INFORMATION ====="
     printf 'Hostname: %s\n' "$(hostname)"
-    printf 'User: %s\n' "$(id -un 2>/dev/null || id -u)"
+    local current_user
+    if current_user="$(id -un 2>/dev/null)"; then
+        :
+    else
+        current_user="$(id -u)"
+    fi
+    printf 'User: %s\n' "$current_user"
     printf 'Date/time: %s\n' "$(date -Is)"
     printf 'OS: %s\n' "$os"
     printf 'Kernel: %s\n' "$(uname -r)"
