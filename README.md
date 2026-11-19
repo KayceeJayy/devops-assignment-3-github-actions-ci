@@ -174,9 +174,30 @@ It contains three jobs in dependency order:
 A failed validation prevents downstream jobs
 from executing.
 
-The final successful workflow run and the required
-failure/recovery demonstration will be documented
-with GitHub Actions run links after publication.
+### CI failure and recovery demonstration
+
+The instructor-required failure and recovery were
+demonstrated on the `demo/ci-failure-recovery` branch.
+
+A deliberate incorrect assertion was committed to
+`tests/test.sh`, causing the automated test job to fail.
+The assertion was then corrected and pushed again.
+
+Evidence:
+
+- [Successful initial main workflow](https://github.com/KayceeJayy/devops-assignment-3-github-actions-ci/actions/runs/44474426079)
+- [Intentionally failed CI run](https://github.com/KayceeJayy/devops-assignment-3-github-actions-ci/actions/runs/44475102147)
+- [Successful CI recovery run](https://github.com/KayceeJayy/devops-assignment-3-github-actions-ci/actions/runs/44475184670)
+
+The failed run demonstrates the dependency behaviour:
+validation succeeds, the test job fails, and the
+downstream Docker job cannot proceed successfully.
+
+After fixing the assertion, the recovery run passes
+all three jobs: `validate`, `test`, and `docker`.
+
+The final `main` branch contains the corrected test.
+
 
 ## Instructor grading
 
