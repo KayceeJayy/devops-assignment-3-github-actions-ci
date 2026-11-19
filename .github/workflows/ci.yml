@@ -1,0 +1,35 @@
+name: DevOps Diagnostic CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Bash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run lint checks
+        run: ./scripts/lint.sh
+
+  test:
+    needs: validate
+    name: Run automated tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run functional tests
+        run: ./tests/test.sh
+
+  docker:
+    needs: test
+    name: Build and smoke-test Docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image and run smoke tests
+        run: ./scripts/build.sh
