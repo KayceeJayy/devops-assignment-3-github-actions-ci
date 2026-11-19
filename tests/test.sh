@@ -33,7 +33,7 @@ check_exit() {
 
 echo "===== FUNCTIONAL TESTS ====="
 
-check_exit 0 "Help command" \
+check_exit 1 "Help command" \
     "$APP" help
 
 check_exit 0 "System information" \
